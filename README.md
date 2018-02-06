@@ -1,5 +1,5 @@
-# RESU
-Repository for the Real-Time Environmental Unit.
+# RESU-FC
+Repository for the Real-Time Environmental Unit (RESU) and Flight Computer (FC).
 
 ## Components:
 - (1) RTC [UTc] w/ Backup Battery 
