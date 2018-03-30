@@ -1,3 +1,4 @@
+#Python code for Raspberry Pi to receive serial commands from the Arduino.
 
 #!/usr/bin/python3
 import serial
