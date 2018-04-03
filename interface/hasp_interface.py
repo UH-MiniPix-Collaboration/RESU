@@ -2,19 +2,14 @@
 
 #!/usr/bin/python3
 import serial
-
-ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800, timeout = 1)
+from processcmd import processcmd
+ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800)
 print("Serial Connected")
 
 # read from Arduino
 while True:
-	s_input = ser.read(1)#.decode("utf8", "replace")
-	#input = ser.read(1) * 256
-	#input = input + ser.read()
-	print(s_input)
-#print ("Read input " + input.decode("utf-8") + " from Arduino")
-
-# write something back
+    cmd1, cmd2 = processcmd(ser)
+    print(s_input)
 
 #ser.write(b'A')
 
