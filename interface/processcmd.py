@@ -1,11 +1,11 @@
-HASP_SOH = 0x01
-HASP_STX = 0x02
-HASP_CMD_BYTE1 = 0x10
-HASP_CMD_BYTE2 = 0x20
-HASP_ETX = 0x03
-HASP_CR = 0x0D
-HASP_LF = 0x0A
-HASP_CMD_COMPLETE = 0x30
+HASP_SOH = '\x01'
+HASP_STX = '\x02'
+HASP_CMD_BYTE1 = '\10'
+HASP_CMD_BYTE2 = '\x20'
+HASP_ETX = '\x03'
+HASP_CR = '\x0D'
+HASP_LF = '\xA1'
+HASP_CMD_COMPLETE = '\x30'
 
 # No idea if this works yet, needs to be tested
 
@@ -21,10 +21,10 @@ def processcmd(serial_conn):
         in_byte = serial_conn.read()
 
         if state == HASP_SOH:
-            if in_byte == 0x01:
+            if in_byte == '\x01':
                 state = HASP_STX
         elif state == HASP_STX:
-            if in_byte == 0x02:
+            if in_byte == '\x02':
                 state = HASP_CMD_BYTE1
             else:
                 state = HASP_SOH
@@ -35,17 +35,17 @@ def processcmd(serial_conn):
             cmd2 = in_byte
             state = HASP_ETX
         elif state == HASP_ETX:
-            if in_byte == 0x03:
+            if in_byte == '\x03':
                 state = HASP_CR
             else:
                 state = HASP_SOH
         elif state == HASP_CR:
-            if in_byte == 0x0D:
+            if in_byte == '\x0D':
                 state = HASP_LF
             else:
                 state = HASP_SOH
         elif state == HASP_LF:
-            if in_byte == 0x0A:
+            if in_byte == '\x0A':
                 state = HASP_CMD_COMPLETE
                 command_processed = True
             else:

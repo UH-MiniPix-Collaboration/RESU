@@ -9,7 +9,7 @@ print("Serial Connected")
 # read from Arduino
 while True:
     cmd1, cmd2 = processcmd(ser)
-    print(s_input)
+    print(cmd1, cmd2)
 
 #ser.write(b'A')
 
