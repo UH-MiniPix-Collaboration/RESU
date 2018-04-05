@@ -1,9 +1,10 @@
-from time import sleep
 import logging
+import binascii
+
+from time import sleep
 
 logging.getLogger('')
 
-import binascii
 HASP_SOH = b'\x01'
 HASP_STX = b'\x02'
 HASP_CMD_BYTE1 = b'\x10'
@@ -42,13 +43,12 @@ class SerialConnectionTest:
 
 
 def processcmd(serial_conn):
-
     command_processed = False
     state = HASP_SOH
     cmd1 = None
     cmd2 = None
 
-    logging.info("Begin Arduino Transmission")
+
 
     while not command_processed:
         in_byte = serial_conn.read(1)
@@ -56,6 +56,7 @@ def processcmd(serial_conn):
 
         if state == HASP_SOH:
             if in_byte == b'\x01':
+                logging.info("Begin Arduino Transmission")
                 state = HASP_STX
         elif state == HASP_STX:
             if in_byte == b'\x02':
@@ -90,6 +91,7 @@ def processcmd(serial_conn):
     logging.info("End Arduino Transmission")
 
     return cmd1, cmd2
+
 
 if __name__ == "__main__":
     test_serial = SerialConnectionTest()

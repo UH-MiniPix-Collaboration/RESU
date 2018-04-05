@@ -19,37 +19,39 @@ logging.getLogger('').addHandler(console)
 """
 Using a custom object to fake a real serial connection, should work with a real connection as well.
 """
-ser = SerialConnectionTest()
 
-# Uncomment to use a real connection
-#ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800)
+def listen():
+    ser = SerialConnectionTest()
 
-# Open serial port
-if not ser.isOpen():
-    ser.open()
-    logging.info("Serial Connected")
-else:
-    print("Serial Connected")
-    logging.info("Serial Connected")
+    # Uncomment to use a real connection
+    #ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800)
 
-# Read from Arduino
-while True:
-    cmd1, cmd2 = processcmd(ser)
-    logging.info("Received CMD1: {} CMD2: {}".format(cmd1, cmd2))
+    # Open serial port
+    if not ser.isOpen():
+        ser.open()
+        logging.info("Serial Connected")
+    else:
+        print("Serial Connected")
+        logging.info("Serial Connected")
 
-    succ = ser.write(b'n')
-    ser.write(b'u')
-    ser.write(b'd')
-    ser.write(b'e')
-    ser.write(b's')
+    # Read from Arduino
+    while True:
+        cmd1, cmd2 = processcmd(ser)
+        logging.info("Received CMD1: {} CMD2: {}".format(cmd1, cmd2))
 
-    if succ == 1:
-        #print("Success: " + str(succ) + "\n")
-        logging.info("Successful Transmission\n")
+        succ = ser.write(b'n')
+        ser.write(b'u')
+        ser.write(b'd')
+        ser.write(b'e')
+        ser.write(b's')
 
-        # input = ser.read(1) * 256
-        # input = input + ser.read()
-        # print ("Read input " + input.decode("utf-8") + " from Arduino")
+        if succ == 1:
+            #print("Success: " + str(succ) + "\n")
+            logging.info("Successful Transmission\n")
+
+            # input = ser.read(1) * 256
+            # input = input + ser.read()
+            # print ("Read input " + input.decode("utf-8") + " from Arduino")
 
 # write something back
 
@@ -60,3 +62,12 @@ while True:
 #        input = ser.read()
 #        input_number = ord(input)
 #        print ("Read input back: " + str(input_number))
+
+if __name__ == "__main__":
+    try:
+        listen()
+    except KeyboardInterrupt:
+        logging.info("Exitting...")
+    except Exception as e:
+        logging.info(e)
+
