@@ -11,7 +11,7 @@ HASP_CMD_BYTE1 = b'\x10'
 HASP_CMD_BYTE2 = b'\x20'
 HASP_ETX = b'\x03'
 HASP_CR = b'\x0D'
-HASP_LF = b'\xA1'
+HASP_LF = b'\x0A'
 HASP_CMD_COMPLETE = '\x30'
 
 
@@ -80,7 +80,7 @@ def processcmd(serial_conn):
             else:
                 state = HASP_SOH
         elif state == HASP_LF:
-            if in_byte == b'\xA1':
+            if in_byte == b'\x0A':
                 state = HASP_CMD_COMPLETE
                 command_processed = True
             else:

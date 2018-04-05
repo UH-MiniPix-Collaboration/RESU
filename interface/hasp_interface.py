@@ -2,6 +2,7 @@
 
 # !/usr/bin/python3
 import logging
+import serial
 from processcmd import processcmd, SerialConnectionTest
 
 logging.basicConfig(level=logging.DEBUG,
@@ -21,10 +22,9 @@ Using a custom object to fake a real serial connection, should work with a real 
 """
 
 def listen():
-    ser = SerialConnectionTest()
 
     # Uncomment to use a real connection
-    #ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800)
+    ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800)
 
     # Open serial port
     if not ser.isOpen():
