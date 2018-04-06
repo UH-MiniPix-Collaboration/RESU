@@ -17,14 +17,14 @@ console.setFormatter(formatter)
 logging.getLogger('').addHandler(console)
 
 
-"""
-Using a custom object to fake a real serial connection, should work with a real connection as well.
-"""
-
 def listen():
+    """
+    Using a custom object to fake a real serial connection, should work with a real connection as well.
+    """
+    ser = SerialConnectionTest()
 
     # Uncomment to use a real connection
-    ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800)
+    #ser = serial.Serial('/dev/serial/by-id/usb-Prolific_Technology_Inc._USB-Serial_Controller_D-if00-port0', 4800)
 
     # Open serial port
     if not ser.isOpen():
@@ -47,7 +47,7 @@ def listen():
 
         if succ == 1:
             #print("Success: " + str(succ) + "\n")
-            logging.info("Successful Transmission\n")
+            logging.info("Successful Transmission")
 
             # input = ser.read(1) * 256
             # input = input + ser.read()
@@ -69,5 +69,5 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         logging.info("Exitting...")
     except Exception as e:
-        logging.info(e)
+        logging.error(e)
 
